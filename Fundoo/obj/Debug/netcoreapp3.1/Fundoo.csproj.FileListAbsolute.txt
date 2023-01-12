@@ -49,3 +49,9 @@ C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fun
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.dll
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.pdb
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.genruntimeconfig.cache
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\System.Text.Json.dll
