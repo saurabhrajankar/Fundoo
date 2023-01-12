@@ -14,7 +14,7 @@ namespace Fundoo.Controllers
         IUserBL iuserBL;
         public UserController(IUserBL iuserBL)
         {
-          this.iuserBL = iuserBL;
+            this.iuserBL = iuserBL;
         }
         [HttpPost]
         [Route("UserRegistration")]
@@ -61,5 +61,27 @@ namespace Fundoo.Controllers
                 throw;
             }
         }
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public IActionResult ForgotPassword(string email)
+        {
+            try
+            {
+                var result = iuserBL.ForgotPassword(email);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Mail Sent Successfully" });
+                }
+                else
+                {
+                    return this.NotFound(new { success = false, message = "Sending Mail Failed" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
+    
 }

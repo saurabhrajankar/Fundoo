@@ -8,10 +8,8 @@ namespace RepoLayer.Entities
 {
     public class UserEntity
     {
-      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        
         public long UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

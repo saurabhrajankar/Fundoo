@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "kN5JzsWAH6CaOlMoxyNpbV2s6tKgzhSEpkagMAXrYviXK88IYCCM2Y1HFlBKC7waFXbU0WqjIKItwNn16l28Rg==",
+  "dgSpecHash": "n/3g05rHGKeE+FO5L4VWZTHYhQKlgF9w6+6WpYaHjtr7AaJXJ5NkkznY3lfWI5hEt3ocSBXejkYcyunqKpuRiQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Saurabh\\OneDrive\\Desktop\\CFFF\\Fundoo\\CommonLayer\\CommonLayer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Saurabh\\.nuget\\packages\\experimental.system.messaging\\1.1.0\\experimental.system.messaging.1.1.0.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\Saurabh\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -86,6 +86,29 @@ namespace RepoLayer.Service
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+        public string ForgotPassword(string email)
+        {
+            try
+            {
+                var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                if (result != null)
+                {
+                    var token = GenerateSecurityToken(result.Email, result.UserId);
+                    MSMQ objMSMQ = new MSMQ();
+                    objMSMQ.sendData2Queue(token);
+                    return token;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }  
 
