@@ -2,6 +2,8 @@
 using CommonLayer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepoLayer.Context;
+using System;
 
 namespace Fundoo.Controllers
 {
@@ -33,6 +35,29 @@ namespace Fundoo.Controllers
             }
             catch (System.Exception)
             {
+                throw;
+            }
+        }
+        [HttpPost]
+        [Route("UserLogin")]
+        public IActionResult UserLogin(UserLogin userLogin)
+        {
+            try
+            {
+                var result = iuserBL.UserLogin(userLogin);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Login successfull", data = result });
+
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Login unsuccessfull" });
+                }
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
