@@ -61,3 +61,7 @@ C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Swa
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

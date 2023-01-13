@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RepoLayer.Context;
@@ -108,8 +109,30 @@ namespace RepoLayer.Service
                 throw;
             }
         }
+        public bool ResetPassword(string email, string new_password, string confirm_password)
+        {
+            try
+            {
+                if (new_password == confirm_password)
+                {
+                    var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                    result.Password = new_password;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
-}  
+}
+
 
 
