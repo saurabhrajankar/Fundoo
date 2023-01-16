@@ -11,7 +11,8 @@ namespace RepoLayer.Context
        public FundooContext(DbContextOptions options) : base(options)
        {
        }
-       public DbSet<UserEntity> UserTable { get; set; }
-   }
+       public DbSet<UserEntity> Users { get; set; }
+       public DbSet<NoteEntity> Notes { get; set; }
+    }
     
 }

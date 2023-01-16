@@ -54,7 +54,7 @@ namespace RepoLayer.Service
         {
             try
             {
-                var result = fundooContext.UserTable.Where(x => x.Email == userLogin.Email && x.Password==userLogin.Password).FirstOrDefault();
+                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email && x.Password==userLogin.Password).FirstOrDefault();
                 if (result != null)
                 {
                     var tocken = GenerateSecurityToken(result.Email, result.UserId);
@@ -79,7 +79,7 @@ namespace RepoLayer.Service
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, email),
-                    new Claim("UserId",userId.ToString())
+                    new Claim("userId",userId.ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -91,7 +91,7 @@ namespace RepoLayer.Service
         {
             try
             {
-                var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
                 if (result != null)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
@@ -115,7 +115,7 @@ namespace RepoLayer.Service
             {
                 if (new_password == confirm_password)
                 {
-                    var result = fundooContext.UserTable.Where(x => x.Email == email).FirstOrDefault();
+                    var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
                     result.Password = new_password;
                     fundooContext.SaveChanges();
                     return true;
