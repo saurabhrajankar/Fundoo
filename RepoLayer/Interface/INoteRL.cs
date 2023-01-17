@@ -13,5 +13,6 @@ namespace RepoLayer.Interface
         public bool ArchiveOrNot(long noteid);
         public bool PinOrNot(long noteid);
         public NoteEntity UpdateNotes(NotesModel notes, long noteid);
+        public bool TrashOrNot(long NoteId);
     }
 }

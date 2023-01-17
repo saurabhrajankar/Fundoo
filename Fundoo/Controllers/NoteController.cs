@@ -27,7 +27,7 @@ namespace Fundoo.Controllers
         {
             try
             {
-                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value); 
+                var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
                 var responce = noteBL.AddNote(notesModel, userId);
                 if (responce != null)
                 {
@@ -35,7 +35,7 @@ namespace Fundoo.Controllers
                 }
                 else
                 {
-                    return this.BadRequest(new { Success = false, message = "Note Adding Failes"});
+                    return this.BadRequest(new { Success = false, message = "Note Adding Failes" });
                 }
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace Fundoo.Controllers
             {
                 if (noteBL.DeleteNote(NoteId))
                 {
-                    return this.Ok(new { Success = true, message = "Note Deleted",});
+                    return this.Ok(new { Success = true, message = "Note Deleted", });
                 }
                 else
                 {
@@ -121,11 +121,34 @@ namespace Fundoo.Controllers
                 var result = noteBL.PinOrNot(NoteId);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true,Message = "pinning successfully", responce = result });
+                    return this.Ok(new { success = true, Message = "pinning successfully", responce = result });
                 }
                 else
                 {
                     return this.BadRequest(new { success = false, Message = "Unable to pin Note" });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPut]
+        [Route("TrashOrNot")]
+        public IActionResult TrashOrNote(long NoteId)
+        {
+            try
+            {
+                var result = noteBL.PinOrNot(NoteId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Trashed successfully", responce = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "Unable to Trashed" });
                 }
             }
             catch (Exception)

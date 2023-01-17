@@ -142,6 +142,21 @@ namespace RepoLayer.Service
                 throw;
             }
         }
+        public bool TrashOrNot(long NoteId)
+        {
+            NoteEntity result=fundooContext.Notes.FirstOrDefault(x=>x.NoteID == NoteId);
+            if (result.Trash != null)
+            {
+                result.Trash = !result.Trash;
+                fundooContext.SaveChanges();
+                return false;
+            }
+            else
+            { 
+                result.Trash = !result.Trash;
+                return true;
+            }
+        }
        
     }
 }
