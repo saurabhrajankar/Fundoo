@@ -1,11 +1,16 @@
-﻿using CommonLayer.Model;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using RepoLayer.Context;
 using RepoLayer.Entities;
 using RepoLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 
 namespace RepoLayer.Service
@@ -13,9 +18,11 @@ namespace RepoLayer.Service
     public class NoteRL:INoteRL
     {
         FundooContext fundooContext;
-        public NoteRL(FundooContext fundooContext)
+        private readonly IConfiguration configuration;
+        public NoteRL(FundooContext fundooContext, IConfiguration configuration)
         {
             this.fundooContext = fundooContext;
+            this.configuration = configuration;
         }
         public NoteEntity AddNote(NotesModel notesModel,long UserId)
         {
@@ -47,6 +54,25 @@ namespace RepoLayer.Service
             catch (Exception ex)
             {
                 throw;
+            }
+        }
+        public List<NoteEntity> GetAllNotes(long UserId)
+        {
+            try
+            {
+                var allnotes = fundooContext.Notes.Where(n => n.UserId == UserId).ToList();
+                if (allnotes != null)
+                {
+                    return allnotes;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         public NoteEntity UpdateNotes(NotesModel notes, long NoteId)
@@ -102,7 +128,7 @@ namespace RepoLayer.Service
         {
             try
             {
-                NoteEntity result = this.fundooContext.Notes.FirstOrDefault(x => x.NoteID == NoteId);
+                var result = this.fundooContext.Notes.FirstOrDefault(x => x.NoteID == NoteId);
                 if (result.ArchiveNote != null)
                 {
                     result.ArchiveNote = !result.ArchiveNote;
@@ -124,7 +150,7 @@ namespace RepoLayer.Service
         {
             try
             {
-                NoteEntity result = this.fundooContext.Notes.FirstOrDefault(x => x.NoteID == NoteId);
+                var result = fundooContext.Notes.FirstOrDefault(x => x.NoteID == NoteId);
                 if (result.PinNote != null)
                 {
                     result.PinNote = !result.PinNote;
@@ -144,19 +170,80 @@ namespace RepoLayer.Service
         }
         public bool TrashOrNot(long NoteId)
         {
-            NoteEntity result=fundooContext.Notes.FirstOrDefault(x=>x.NoteID == NoteId);
-            if (result.Trash != null)
+            try
             {
-                result.Trash = !result.Trash;
-                fundooContext.SaveChanges();
-                return false;
+                var result = fundooContext.Notes.FirstOrDefault(x => x.NoteID == NoteId);
+                if (result.Trash != null)
+                {
+                    result.Trash = !result.Trash;
+                    fundooContext.SaveChanges();
+                    return false;
+                }
+                else
+                {
+                    result.Trash = !result.Trash;
+                    return true;
+                }
+
             }
-            else
-            { 
-                result.Trash = !result.Trash;
-                return true;
+            catch (Exception)
+            {
+
+                throw;
+            }   
+        }
+        public NoteEntity UpdateColor(long NoteId, string Color)
+        {
+            try
+            {
+                var result = this.fundooContext.Notes.FirstOrDefault(e => e.NoteID == NoteId);
+                if (result != null)
+                {
+                    result.Color = Color;
+                    fundooContext.SaveChanges();
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
-       
+        public string UploadImage(long NoteId, long UserId, IFormFile img)
+        {
+            try
+            {
+                var result = fundooContext.Notes.FirstOrDefault(e => e.NoteID == NoteId && e.UserId == UserId);
+                if (result != null)
+                {
+                    Account acc = new Account(
+                        this.configuration["CloudinarySettings:CloudName"],
+                        this.configuration["CloudinarySettings:ApiKey"],
+                        this.configuration["CloudinarySettings:ApiSecret"]);
+                    Cloudinary cloudinary = new Cloudinary(acc);
+                    var uploadpic = new ImageUploadParams()
+                    {
+                        File = new FileDescription(img.FileName, img.OpenReadStream()),
+                    };
+                    var uploadresult = cloudinary.Upload(uploadpic);
+                    string imgpath = uploadresult.Url.ToString();
+                    result.Image = imgpath;
+                    fundooContext.SaveChanges();
+                    return "Image Uploaded Successfully";
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -8,6 +8,7 @@ using RepoLayer.Entities;
 using System.Linq;
 using System;
 using Experimental.System.Messaging;
+using Microsoft.Extensions.Logging;
 
 namespace Fundoo.Controllers
 {
@@ -22,7 +23,7 @@ namespace Fundoo.Controllers
         }
         [Authorize]
         [HttpPost]
-        [Route("NotesModel")]
+        [Route("CreateNote")]
         public IActionResult AddNote(NotesModel notesModel)
         {
             try
@@ -45,11 +46,33 @@ namespace Fundoo.Controllers
             }
         }
         [Authorize]
+        [HttpGet]
+        [Route("GetAllNotes")]
+        public ActionResult GetAllNotes()
+        {
+            try
+            {
+                long UserId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = noteBL.GetAllNotes(UserId);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, message = "Getting User Notes", data = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, message = "Failed To Load Notes" });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        [Authorize]
         [HttpPut]
         [Route("UpdateNotes")]
         public IActionResult updatenotes(NotesModel notes, long Noteid)
         {
-
             try
             {
                 //long userid = Convert.ToInt32(User.Claims.First(e => e.Type == "Id").Value);
@@ -141,7 +164,7 @@ namespace Fundoo.Controllers
         {
             try
             {
-                var result = noteBL.PinOrNot(NoteId);
+                var result = noteBL.TrashOrNot(NoteId);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, Message = "Trashed successfully", responce = result });
@@ -157,6 +180,50 @@ namespace Fundoo.Controllers
                 throw;
             }
         }
-    }
-   
+        [Authorize]
+        [HttpPut]
+        [Route("UpdateColor")]
+        public IActionResult UpdateColor(long NoteId, string Color)
+        {
+            try
+            {
+                var result = noteBL.UpdateColor(NoteId, Color);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Color Updated successfully", responce = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "color Updatation faild" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        [Authorize]
+        [HttpPost]
+        [Route("UploadImage")]
+        public IActionResult UploadImage(long NoteId, long UserId, IFormFile img)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
+                var result = noteBL.UploadImage(NoteId, UserId,img);
+                if (result != null)
+                {
+                    return this.Ok(new { success = true, Message = "Image Uploaded Successfully", responce = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { success = false, Message = "Failed To Upload Image" });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    } 
 }

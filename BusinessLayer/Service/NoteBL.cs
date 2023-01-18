@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using RepoLayer.Entities;
 using RepoLayer.Interface;
 using RepoLayer.Service;
@@ -88,6 +89,41 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
+        public NoteEntity UpdateColor(long NoteId, string Color)
+        {
+            try
+            {
+                return noteRL.UpdateColor(NoteId, Color);
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+        public List<NoteEntity> GetAllNotes(long UserId)
+        {
+            try
+            {
+                return noteRL.GetAllNotes(UserId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public string UploadImage(long NoteId, long UserId, IFormFile img)
+        {
+            try
+            {
+                return noteRL.UploadImage(NoteId, UserId, img);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
