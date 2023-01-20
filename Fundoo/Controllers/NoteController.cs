@@ -9,18 +9,33 @@ using System.Linq;
 using System;
 using Experimental.System.Messaging;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fundoo.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+
     public class NoteController : ControllerBase
     {
         INoteBL noteBL;
-        public NoteController(INoteBL noteBL)
+        //private readonly IMemoryCache memoryCache;
+        private readonly FundooContext fundoocontext;
+        private readonly IDistributedCache distributedCache;
+        public NoteController(INoteBL noteBL, FundooContext fundoocontext, IDistributedCache distributedCache)
         {
             this.noteBL = noteBL;
+           // this.memoryCache = memoryCache;
+            this.fundoocontext = fundoocontext;
+            this.distributedCache = distributedCache;
         }
+
         [Authorize]
         [HttpPost]
         [Route("CreateNote")]
@@ -144,7 +159,7 @@ namespace Fundoo.Controllers
                 var result = noteBL.PinOrNot(NoteId);
                 if (result != null)
                 {
-                    return this.Ok(new { success = true, Message = "pinning successfully", responce = result });
+                    return this.Ok(new { success = true, Message = "pinning successfully"});
                 }
                 else
                 {
@@ -224,6 +239,33 @@ namespace Fundoo.Controllers
             {
                 throw;
             }
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("Redies")]
+
+        public async Task<IActionResult> GetAllNotesUsingRedisCache()
+        {
+            var cacheKey = "NoteList";
+            string serializedNoteList;
+            var NoteList = new List<NoteEntity>();
+            var redisNoteList = await distributedCache.GetAsync(cacheKey);
+            if (redisNoteList != null)
+            {
+                serializedNoteList = Encoding.UTF8.GetString(redisNoteList);
+                NoteList = JsonConvert.DeserializeObject<List<NoteEntity>>(serializedNoteList);
+            }
+            else
+            {
+                NoteList = await fundoocontext.Notes.ToListAsync();
+                serializedNoteList = JsonConvert.SerializeObject(NoteList);
+                redisNoteList = Encoding.UTF8.GetBytes(serializedNoteList);
+                var options = new DistributedCacheEntryOptions()
+                    .SetAbsoluteExpiration(DateTime.Now.AddMinutes(10))
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                await distributedCache.SetAsync(cacheKey, redisNoteList, options);
+            }
+            return Ok(NoteList);
         }
     } 
 }

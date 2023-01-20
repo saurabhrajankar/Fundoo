@@ -66,3 +66,8 @@ C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fun
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.pdb
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\obj\Debug\netcoreapp3.1\Fundoo.genruntimeconfig.cache
 C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\CloudinaryDotNet.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\Pipelines.Sockets.Unofficial.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\StackExchange.Redis.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\System.Diagnostics.PerformanceCounter.dll
+C:\Users\Saurabh\OneDrive\Desktop\CFFF\Fundoo\Fundoo\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.PerformanceCounter.dll

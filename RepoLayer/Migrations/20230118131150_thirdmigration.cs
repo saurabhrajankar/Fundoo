@@ -71,7 +71,7 @@ namespace RepoLayer.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "UserId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -107,7 +107,7 @@ namespace RepoLayer.Migrations
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "UserId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
     }
 }

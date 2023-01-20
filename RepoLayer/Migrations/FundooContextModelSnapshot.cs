@@ -44,6 +44,31 @@ namespace RepoLayer.Migrations
                     b.ToTable("CollabDetails");
                 });
 
+            modelBuilder.Entity("RepoLayer.Entities.LabalEntity", b =>
+                {
+                    b.Property<long>("LabelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("NoteId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("LabelId");
+
+                    b.HasIndex("NoteId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Label");
+                });
+
             modelBuilder.Entity("RepoLayer.Entities.NoteEntity", b =>
                 {
                     b.Property<long>("NoteID")
@@ -123,6 +148,21 @@ namespace RepoLayer.Migrations
                     b.HasOne("RepoLayer.Entities.NoteEntity", "Notes")
                         .WithMany()
                         .HasForeignKey("NotesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RepoLayer.Entities.UserEntity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("RepoLayer.Entities.LabalEntity", b =>
+                {
+                    b.HasOne("RepoLayer.Entities.NoteEntity", "Notes")
+                        .WithMany()
+                        .HasForeignKey("NoteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

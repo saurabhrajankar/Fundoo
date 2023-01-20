@@ -18,7 +18,5 @@ namespace RepoLayer.Interface
         public bool TrashOrNot(long NoteId);
         public NoteEntity UpdateColor(long NoteId, string Color);
         public string UploadImage(long NoteId, long UserId, IFormFile img);
-
-
     }
 }
