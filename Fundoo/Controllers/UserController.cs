@@ -25,8 +25,9 @@ namespace Fundoo.Controllers
             try
             {
                 var result = iuserBL.Registration(userRegistration);
-                if (result != null)
+                if (result != null)     
                 {
+     
                     return this.Ok(new { success = true, message = "Registration successfull", data = result });
 
                 }

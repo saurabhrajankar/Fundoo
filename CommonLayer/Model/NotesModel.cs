@@ -6,7 +6,6 @@ namespace CommonLayer.Model
 {
     public class NotesModel
     {
-        
         public string Title { get; set; }
         public string Descrption { get; set; }
         public DateTime Reminder { get; set; }

@@ -15,6 +15,5 @@ namespace RepoLayer.Context
        public DbSet<NoteEntity> Notes { get; set; }
        public DbSet<CollabEntity> CollabDetails { get; set; }
        public DbSet<LabalEntity> Label { get; set; }
-    }
-    
+   }
 }
