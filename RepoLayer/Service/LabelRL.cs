@@ -69,7 +69,7 @@ namespace RepoLayer.Service
                 throw ex;
             }
         }
-        public bool DeleteNote(long UserID, long LabelId)
+        public bool DeleteLabel(long UserID, long LabelId)
         {
             try
             {

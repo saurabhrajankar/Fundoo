@@ -27,11 +27,11 @@ namespace BusinessLayer.Service
                 throw;
             }  
         }
-        public List<NoteEntity> GetAllNotes(long noteId)
+        public List<NoteEntity> GetAllCollab(long noteId)
         {
             try
             {
-                return collabRL.GetAllNotes(noteId);
+                return collabRL.GetAllCollab(noteId);
             }
             catch (Exception)
             {
@@ -39,11 +39,11 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
-        public bool DeleteNote(long NoteId)
+        public bool DeleteCollab(long NoteId)
         {
             try
             {
-                return collabRL.DeleteNote(NoteId);
+                return collabRL.DeleteCollab(NoteId);
             }
             catch (Exception)
             {

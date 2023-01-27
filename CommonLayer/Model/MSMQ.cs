@@ -38,5 +38,6 @@ namespace CommonLayer.Model
             smtp.Send("sauraj600@gmail.com","sauraj600@gmail.com", subject, body);
             MQ.BeginReceive();
         }
+
     }
 }

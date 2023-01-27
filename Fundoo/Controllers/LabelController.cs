@@ -51,7 +51,7 @@ namespace Fundoo.Controllers
             try
             {
                 var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = labelBL.GetAllLabel(userId,LabelId);
+                var result = labelBL.GetAllLabel(userId, LabelId);
                 if (result != null)
                 {
                     return this.Ok(new { Success = true, message = "Label Added", data = result });
@@ -69,12 +69,12 @@ namespace Fundoo.Controllers
         }
         [HttpDelete]
         [Route("DeleteLabel")]
-        public IActionResult DeleteNote(long LabelId)
+        public IActionResult DeleteLabel(long LabelId)
         {
             try
             {
                 var userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "userId").Value);
-                var result = labelBL.DeleteNote(userId, LabelId);
+                var result = labelBL.DeleteLabel(userId, LabelId);
                 if (result != null)
                 {
                     return this.Ok(new { Success = true, message = "Label Delete Succesfully", data = result });
@@ -92,7 +92,7 @@ namespace Fundoo.Controllers
         }
         [HttpPut]
         [Route("UpdateLabel")]
-        public IActionResult UpdateLabel( UpdateLabel update)
+        public IActionResult UpdateLabel(UpdateLabel update)
         {
             try
             {

@@ -30,7 +30,7 @@ namespace Fundoo
                 {
                     options.ClearProviders();
                     options.SetMinimumLevel(LogLevel.Trace);
-                });
+                }).UseNLog();   
 
     }
 }

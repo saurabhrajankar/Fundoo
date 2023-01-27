@@ -13,8 +13,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Ocelot.DependencyInjection;
-using Ocelot.Middleware;
 using RepoLayer.Context;
 using RepoLayer.Interface;
 using RepoLayer.Service;
@@ -57,7 +55,7 @@ namespace Fundoo
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Please enter token",
+                    //Description = "Please enter token",
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
                     BearerFormat = "JWT",
@@ -100,12 +98,11 @@ namespace Fundoo
             {
                 options.Configuration = "localhost:6379";
             });
-            
-            //services.AddOcelot();
+
         }
     
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSwagger();
             app.UseSwaggerUI(c => {

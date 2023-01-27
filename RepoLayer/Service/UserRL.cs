@@ -1,6 +1,7 @@
 ﻿using CommonLayer.Model;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using RepoLayer.Context;
 using RepoLayer.Entities;
@@ -8,8 +9,11 @@ using RepoLayer.Interface;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace RepoLayer.Service
@@ -33,7 +37,7 @@ namespace RepoLayer.Service
                 objentity.FirstName = userRegistration.FirstName;
                 objentity.LastName = userRegistration.LastName;
                 objentity.Email = userRegistration.Email;
-                objentity.Password = userRegistration.Password;
+                objentity.Password = EncryptPassword(userRegistration.Password);
                 fundooContext.Add(objentity);
                 int result = fundooContext.SaveChanges();
                 if (result > 0)
@@ -54,11 +58,16 @@ namespace RepoLayer.Service
         {
             try
             {
-                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email && x.Password==userLogin.Password).FirstOrDefault();
+                var result = fundooContext.Users.Where(x => x.Email == userLogin.Email).FirstOrDefault();
                 if (result != null)
                 {
-                    var tocken = GenerateSecurityToken(result.Email, result.UserId);
-                    return tocken;
+                    string decrypass = DecryptPassword(result.Password);
+                    if (decrypass ==userLogin.Password)
+                    {
+                        var tocken = GenerateSecurityToken(result.Email, result.UserId);
+                        return tocken;
+                    }
+                    return "Login failed";
                 } 
                 else
                 {
@@ -86,6 +95,49 @@ namespace RepoLayer.Service
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+        public string EncryptPassword(string Password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Password))
+                {
+                    return null;
+                }
+                else
+                {
+                    byte[] strongpassword = ASCIIEncoding.UTF8.GetBytes(Password);
+                    string EncryptPassword = Convert.ToBase64String(strongpassword);
+                    return EncryptPassword;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public string DecryptPassword(string Password)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(Password))
+                {
+                    return null;
+                }
+                else
+                {
+                    byte[] encryptpassword = Convert.FromBase64String(Password);
+                    string decryptpassword = ASCIIEncoding.ASCII.GetString(encryptpassword);
+                    return decryptpassword;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+  
         }
         public string ForgotPassword(string email)
         {
@@ -116,6 +168,7 @@ namespace RepoLayer.Service
                 if (new_password == confirm_password)
                 {
                     var result = fundooContext.Users.Where(x => x.Email == email).FirstOrDefault();
+                    string newEncryptPass=EncryptPassword(new_password);
                     result.Password = new_password;
                     fundooContext.SaveChanges();
                     return true;

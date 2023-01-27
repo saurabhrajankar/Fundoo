@@ -45,7 +45,7 @@ namespace RepoLayer.Service
                 throw;
             }
         }
-        public List<NoteEntity> GetAllNotes(long noteId)
+        public List<NoteEntity> GetAllCollab(long noteId)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace RepoLayer.Service
                 throw ex;
             }
         }
-        public bool DeleteNote(long NoteId)
+        public bool DeleteCollab(long NoteId)
         {
             try
             {

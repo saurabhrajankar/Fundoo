@@ -41,11 +41,11 @@ namespace BusinessLayer.Service
                 throw;
             }
         }
-        public bool DeleteNote(long UserID, long LabelId)
+        public bool DeleteLabel(long UserID, long LabelId)
         {
             try
             {
-                return labelRL.DeleteNote(UserID, LabelId);
+                return labelRL.DeleteLabel(UserID, LabelId);
             }
             catch (Exception)
             {

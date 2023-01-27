@@ -47,12 +47,12 @@ namespace Fundoo.Controllers
             }
         }
         [HttpGet]
-        [Route("RetriveData")]
-        public IActionResult GetAllNotes(long noteId)
+        [Route("GetAllCollab")]
+        public IActionResult GetAllCollab(long noteId)
         {
             try
             {
-                var result = collabBL.GetAllNotes(noteId);
+                var result = collabBL.GetAllCollab(noteId);
                 if (result != null)
                 {
                     return this.Ok(new { success = true, message = "Retrive data sucessfully", data = result });
@@ -69,12 +69,12 @@ namespace Fundoo.Controllers
             }
         }
         [HttpDelete]
-        [Route("DeleteNote")]
-        public IActionResult DeleteNote(long NoteId)
+        [Route("DeleteCollab")]
+        public IActionResult DeleteCollab(long NoteId)
         {
             try
             {
-                if (collabBL.DeleteNote(NoteId))
+                if (collabBL.DeleteCollab(NoteId))
                 {
                     return this.Ok(new { Success = true, message = "Note Deleted", });
                 }

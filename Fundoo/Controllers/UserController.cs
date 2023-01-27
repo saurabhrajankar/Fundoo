@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.Interface;
 using CommonLayer.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RepoLayer.Context;
@@ -14,7 +15,7 @@ namespace Fundoo.Controllers
     public class UserController : ControllerBase
     {
         IUserBL iuserBL;
-        public UserController(IUserBL iuserBL)
+        public UserController(IUserBL iuserBL, IWebHostEnvironment environment)
         {
             this.iuserBL = iuserBL;
         }
@@ -86,7 +87,7 @@ namespace Fundoo.Controllers
             }
         }
         [Authorize]
-        [HttpPut]
+        [HttpPost]
         [Route("ResetPassword")]
         public IActionResult PasswordReset(string new_password, string confirm_password)
         {

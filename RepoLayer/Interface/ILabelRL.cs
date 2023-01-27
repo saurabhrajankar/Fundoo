@@ -10,7 +10,7 @@ namespace RepoLayer.Interface
     {
         public bool AddLabel(LabelModel labelModel, long UserId);
         public List<LabalEntity> GetAllLabel(long UserID, long LabelId);
-        public bool DeleteNote(long UserID, long LabelId);
+        public bool DeleteLabel(long UserID, long LabelId);
         public bool UpdateLabel(long userId, UpdateLabel update);
     }
 }
